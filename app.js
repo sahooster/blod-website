@@ -36,7 +36,7 @@ app.get("/", function(req, res){
       posts: posts
       });
   });
-  
+
 });
 
 app.get("/about", function(req, res){
@@ -58,7 +58,11 @@ app.post("/compose", function(req, res){
     content: req.body.postBody
   });
 
-  post.save();
+  post.save(function(err){
+    if (!err){
+      res.redirect("/");
+    }
+  });
 
   res.redirect("/");
 
