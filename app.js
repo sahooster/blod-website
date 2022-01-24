@@ -29,10 +29,14 @@ const Post = mongoose.model("Post", postSchema);
 let posts = [];
 
 app.get("/", function(req, res){
-  res.render("home", {
-    startingContent: homeStartingContent,
-    posts: posts
-    });
+
+  Post.find({}, function(err, Posts){
+    res.render("home", {
+      startingContent: homeStartingContent,
+      posts: posts
+      });
+  });
+  
 });
 
 app.get("/about", function(req, res){
@@ -59,6 +63,7 @@ app.post("/compose", function(req, res){
   res.redirect("/");
 
 });
+
 
 app.get("/posts/:postName", function(req, res){
   const requestedTitle = _.lowerCase(req.params.postName);
